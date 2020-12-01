@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+        "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<constant name="struts.convention.action.suffix"
+		value="Controller" />
+	<constant name="struts.convention.action.mapAllMatches"
+		value="true" />
+	<constant name="struts.convention.default.parent.package"
+		value="rest-default" />
+	<constant name="struts.convention.package.locators"
+		value="rest" />
+	<constant name="struts.ui.theme" value="simple" />
+
+	<package name="user" namespace="/" extends="struts-default">
+		<action name="login" class="com.ssv.actions.LoginAction">
+			<result name="success" type="redirect">welcome.action</result>
+			<result name="login" type="redirect">welcome.jsp</result>
+			<result name="input">/index.jsp</result>
+		</action>
+
+		<action name="loginPage">
+			<result>/index.jsp</result>
+		</action>
+		<action name="register" class="com.ssv.actions.RegisterAction">
+			<result name="input">/register.jsp</result>
+			<result name="login" type="redirect">/index.jsp</result>
+			<result name="success" type="redirect">index.jsp</result>
+		</action>
+		<action name="welcome" class="com.ssv.actions.WelcomeAction">
+			<result name="success">/welcome.jsp</result>
+		</action>
+		<action name="user" class="com.ssv.actions.UserAction">
+			<result>/user.jsp</result>
+			<result name="next">/user.jsp</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssv.mapper.UserMapper">
+	<resultMap type="User" id="userMapping">
+		<id column="ID" property="id" />
+		<result column="USERNAME" property="username" />
+		<result column="PASSWORD" property="password" />
+	</resultMap>
+	<select id="getUser" resultMap="userMapping">
+		SELECT * FROM user_tbl WHERE
+		USERNAME = '${user}' AND PASSWORD = '${pass}'
+	</select>
+	<select id="getAll" resultMap="userMapping">
+		SELECT * FROM user_tbl
+	</select>
+	<insert id="save">
+		INSERT INTO user_tbl (USERNAME,PASSWORD) VALUES
+		(#{user}, #{pass})
+	</insert>
+	<select id="search" resultMap="userMapping">
+		SELECT * FROM user_tbl
+		<if test="dto.nameSearch!=null">
+			Where USERNAME LIKE #{dto.nameSearch}
+		</if>
+		OFFSET #{dto.page} ROWS FETCH NEXT #{dto.pageSize} ROWS ONLY
+	</select>
+	<select id="totalPage" resultType="Int">
+		SELECT COUNT(id) FROM user_tbl
+		<if test="dto.nameSearch!=null">
+			Where USERNAME LIKE #{dto.nameSearch}
+		</if>
+	</select>
+
+</mapper>
